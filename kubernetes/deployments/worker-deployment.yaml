@@ -1,0 +1,53 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: worker
+        tier: backend
+    spec:
+      containers:
+      - command:
+        - ./howchoo/bin/start_celery.sh
+        env:
+        - name: HOWCHOO_HOST
+          value: staging.howchoo.com
+        - name: HOWCHOO_DB_HOST
+          value: db
+        - name: HOWCHOO_REDIS_HOST
+          value: redis
+        - name: HOWCHOO_DB_NAME
+          value: postgres
+        - name: HOWCHOO_ENV
+          value: staging
+        image: gcr.io/howchoo-161906/web:2f0eb528fe94dcbb5b7b09955241cff079409056
+        name: web
+        volumeMounts:
+        - mountPath: /secrets/database
+          name: database
+          readOnly: true
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=<INSTANCE_CONNECTION_NAME>=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+      volumes:
+      - name: database
+        secret:
+          secretName: database
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials
