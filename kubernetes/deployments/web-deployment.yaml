@@ -27,7 +27,7 @@ spec:
           value: howchoo
         - name: HOWCHOO_ENV
           value: production
-        image: howchoo/web
+        image: gcr.io/howchoo-161906/web:test.6
         name: web
         ports:
         - containerPort: 80
@@ -35,14 +35,15 @@ spec:
         - mountPath: /secrets/database
           name: database
           readOnly: true
-      - name: cloudsql-proxy
+      - command:
+        - /cloud_sql_proxy
+        - -instances=<INSTANCE_CONNECTION_NAME>=tcp:5432
+        - -credential_file=/secrets/cloudsql/credentials.json
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        command: ["/cloud_sql_proxy",
-                  "-instances=<INSTANCE_CONNECTION_NAME>=tcp:5432",
-                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        name: cloudsql-proxy
         volumeMounts:
-        - name: cloudsql-instance-credentials
-          mountPath: /secrets/cloudsql
+        - mountPath: /secrets/cloudsql
+          name: cloudsql-instance-credentials
           readOnly: true
       volumes:
       - name: database
