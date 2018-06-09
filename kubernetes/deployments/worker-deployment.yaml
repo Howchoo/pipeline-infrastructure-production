@@ -29,17 +29,18 @@ spec:
           value: postgres
         - name: HOWCHOO_ENV
           value: staging
-        image: gcr.io/howchoo-161906/web:test.7
+        image: gcr.io/howchoo-161906/web:test.8
         name: web
         volumeMounts:
         - mountPath: /secrets/database
           name: database
           readOnly: true
-      - name: cloudsql-proxy
+      - command:
+        - /cloud_sql_proxy
+        - -instances=howchoo-161906:us-west1:howchoo-production-db=tcp:5432
+        - -credential_file=/secrets/cloudsql/credentials.json
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
-        command: ["/cloud_sql_proxy",
-                  "-instances=howchoo-161906:us-west1:howchoo-production-db=tcp:5432",
-                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        name: cloudsql-proxy
         volumeMounts:
         - mountPath: /secrets/cloudsql
           name: cloudsql-instance-credentials
