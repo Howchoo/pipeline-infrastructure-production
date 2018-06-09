@@ -27,7 +27,7 @@ spec:
           value: howchoo
         - name: HOWCHOO_ENV
           value: production
-        image: gcr.io/howchoo-161906/web:test.8
+        image: gcr.io/howchoo-161906/web:test.9
         livenessProbe:
           httpGet:
             path: /health
@@ -39,10 +39,6 @@ spec:
         - mountPath: /secrets/database
           name: database
           readOnly: true
-        # livenessProbe:
-          # httpGet:
-            # path: /health
-            # port: 80
       - command:
         - /cloud_sql_proxy
         - -instances=howchoo-161906:us-west1:howchoo-production-db=tcp:5432
