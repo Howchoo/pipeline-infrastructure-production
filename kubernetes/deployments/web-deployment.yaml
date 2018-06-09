@@ -35,6 +35,10 @@ spec:
         - mountPath: /secrets/database
           name: database
           readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy",

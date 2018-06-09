@@ -10,4 +10,3 @@ spec:
   backend:
     serviceName: web
     servicePort: 80
-  #rules:
