@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "web-ingress-service"
+spec:
+  tls:
+  - hosts:
+    - howchoo.com
+    secretName: letsencrypt-certs
+  #rules:
