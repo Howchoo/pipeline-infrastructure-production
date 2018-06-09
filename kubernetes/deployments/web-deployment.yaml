@@ -36,9 +36,12 @@ spec:
           name: database
           readOnly: true
         livenessProbe:
-          httpGet:
-            path: /health
-            port: 80
+          exec:
+            command:
+            - ls
+          # httpGet:
+          # path: /health
+          # port: 80
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy",
