@@ -39,13 +39,10 @@ spec:
         - mountPath: /secrets/database
           name: database
           readOnly: true
-        livenessProbe:
-          exec:
-            command:
-            - ls
+        # livenessProbe:
           # httpGet:
-          # path: /health
-          # port: 80
+            # path: /health
+            # port: 80
       - command:
         - /cloud_sql_proxy
         - -instances=howchoo-161906:us-west1:howchoo-production-db=tcp:5432
