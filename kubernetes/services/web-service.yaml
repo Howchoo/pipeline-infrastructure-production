@@ -13,7 +13,7 @@ spec:
     targetPort: 80
   selector:
     app: web
-      tier: frontend
+    tier: frontend
   # type: LoadBalancer
   # loadBalancerIP:
   # ports:
