@@ -7,4 +7,7 @@ spec:
   - hosts:
     - howchoo.com
     secretName: letsencrypt-certs
+  backend:
+    serviceName: web
+    servicePort: 80
   #rules:
