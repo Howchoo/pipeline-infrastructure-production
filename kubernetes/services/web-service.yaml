@@ -6,6 +6,7 @@ metadata:
     app: web
     tier: frontend
 spec:
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 80
