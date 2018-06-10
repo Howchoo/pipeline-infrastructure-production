@@ -30,7 +30,7 @@ spec:
         image: gcr.io/howchoo-161906/web:test.9
         livenessProbe:
           httpGet:
-            path: /health
+            path: /healthz
             port: 80
         name: web
         ports:
