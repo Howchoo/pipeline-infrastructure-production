@@ -14,15 +14,3 @@ spec:
   selector:
     app: web
     tier: frontend
-  # type: LoadBalancer
-  # loadBalancerIP:
-  # ports:
-  # - port: 80
-  #   name: http
-  #  targetPort: 80
-  # - port: 443
-  # name: https
-  # targetPort: 80
-  # selector:
-  # app: web
-  # tier: frontend
