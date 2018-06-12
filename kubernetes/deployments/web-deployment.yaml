@@ -31,11 +31,11 @@ spec:
         livenessProbe:
           httpGet:
             host: 127.0.0.1
-            path: /healthz
-            port: 80
             httpHeaders:
             - name: Host
               value: howchoo.com
+            path: /healthz
+            port: 80
         name: web
         ports:
         - containerPort: 80
