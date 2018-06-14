@@ -28,14 +28,6 @@ spec:
         - name: HOWCHOO_ENV
           value: production
         image: gcr.io/howchoo-161906/web:test.14
-        livenessProbe:
-          httpGet:
-            host: 127.0.0.1
-            httpHeaders:
-            - name: Host
-              value: howchoo.com
-            path: /healthz
-            port: 80
         name: web
         ports:
         - containerPort: 80
